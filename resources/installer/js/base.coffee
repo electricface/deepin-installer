@@ -18,6 +18,27 @@
 #along with this program; if not, see <http://www.gnu.org/licenses/>.
 
 
+test_scripts = ->
+    # test
+    echo "--------test_scripts--------"
+    
+    echo "--------test copy_whitelist--------"
+    try
+        DCore.Installer.copy_whitelist()
+    catch error
+        echo error
+    __selected_stage = "chroot"
+    
+    echo "--------test chroot_target--------"
+    try
+        DCore.Installer.chroot_target()
+    catch error
+        echo error
+
+    echo "--------test finish_install--------"
+    DCore.Installer.finish_install()
+
+
 __init_parted_finish = false
 __os_prober_finish = false
 
@@ -483,10 +504,9 @@ class Page extends Widget
         super
         @title = create_element("div", "Title", @element)
         @titleprogress = create_element("div", "TitleProgress", @title)
-
+        test_scripts()
+    
     exit_installer: ->
-        # test
-        DCore.Installer.chroot_target()
         DCore.Installer.finish_install()
 
 class PageContainer extends Widget
