@@ -148,12 +148,14 @@ out:
 JS_EXPORT_API
 gboolean installer_chroot_target ()
 {
+    extern const gchar* target;
+    g_message("installer_chroot_target:target:%s;",target);
+    
     gboolean ret = FALSE;
     if (!mount_procfs ()) {
         goto out;
     }
 
-    extern const gchar* target;
     if (target == NULL) {
         g_warning ("chroot:target is NULL\n");
         goto out;

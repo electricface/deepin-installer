@@ -485,6 +485,8 @@ class Page extends Widget
         @titleprogress = create_element("div", "TitleProgress", @title)
 
     exit_installer: ->
+        # test
+        DCore.Installer.chroot_target()
         DCore.Installer.finish_install()
 
 class PageContainer extends Widget
