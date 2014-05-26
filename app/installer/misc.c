@@ -30,7 +30,7 @@
 
 #define PACKAGES_LIST_PATH      RESOURCE_DIR"/installer/blacklist.ini"
 #define LOG_FILE_PATH           "/tmp/installer.log"
-#define SCRIPTS_PATH    "/usr/share/deepin-installer/post-install"
+#define SCRIPTS_PATH    RESOURCE_DIR"/post-install"
 
 extern int chroot(const char *path);
 extern int fchdir(int fd);
@@ -261,8 +261,7 @@ static ArrayContainer _normalize_array_container(ArrayContainer pfs)
 }
 
 
-static void
-excute_scripts()
+void excute_scripts()
 {
     
     extern gboolean in_chroot;
@@ -273,10 +272,10 @@ excute_scripts()
     }
     
     ArrayContainer fs;
+    g_message("SCRIPTS_PATH:%s\n",SCRIPTS_PATH);
     GFile* src = g_file_new_for_path(SCRIPTS_PATH);
     fs = dentry_list_files(src);
     g_object_unref(src);
-    g_assert(fs.num > 1);
     
     if(fs.num == 0){
         return;
@@ -413,7 +412,7 @@ finish_install_cleanup ()
     extern int chroot_fd;
 
     if (in_chroot) {
-        /*fix_networkmanager ();*/
+        fix_networkmanager ();
         excute_scripts();
         remove_packages ();
         if (fchdir (chroot_fd) < 0) {
