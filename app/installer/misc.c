@@ -268,7 +268,7 @@ void excute_scripts()
     extern const gchar* target;
     if (!in_chroot) {
         g_warning ("excute_scripts:not in chroot\n");
-        return;
+        /*return;*/
     }
     
     ArrayContainer fs;
