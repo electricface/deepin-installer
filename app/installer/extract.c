@@ -343,7 +343,7 @@ out:
 JS_EXPORT_API
 void installer_extract_iso ()
 {
-    g_printf ("extract intelligent:use extract iso\n");
+    g_message ("extract intelligent:use extract iso\n");
     emit_progress ("extract", "safe");
 
     GThread *thread = g_thread_new ("extract_iso", (GThreadFunc) thread_extract_iso, NULL);
@@ -575,6 +575,7 @@ thread_extract_squashfs (gpointer data)
 JS_EXPORT_API
 void installer_extract_squashfs ()
 {
+    g_message("installer_extract_squashfs");
     GThread *thread = g_thread_new ("extract_squashfs", (GThreadFunc) thread_extract_squashfs, NULL);
     g_thread_unref (thread);
 }
@@ -633,6 +634,7 @@ is_live_os ()
         flag = TRUE;
     }
     g_free (output);
+    g_message("is_live_os:%d\n",flag);
     return flag;
 }
 
@@ -648,6 +650,7 @@ void installer_extract_intelligent ()
 
     if (!is_live_os ()) {
         extern gchar *opt_iso_path;
+        g_message("opt_iso_path:%s\n",opt_iso_path);
         if (opt_iso_path != NULL && g_file_test (opt_iso_path, G_FILE_TEST_EXISTS)) {
             while (g_file_test ("/cdrom/casper/filesystem.squashfs", G_FILE_TEST_EXISTS)) {
                 g_spawn_command_line_async ("umount -l /cdrom", NULL);
@@ -662,6 +665,7 @@ void installer_extract_intelligent ()
     }
 
     extern gchar *opt_extract_mode;
+    g_message("opt_extract_mode:%s\n",opt_extract_mode);
     if (opt_extract_mode != NULL) {
         if (g_strcmp0 (opt_extract_mode, "fast") == 0) {
             installer_extract_squashfs ();

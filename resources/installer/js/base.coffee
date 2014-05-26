@@ -20,23 +20,27 @@
 
 test_scripts = ->
     # test
-    echo "--------test_scripts--------"
+    echo "--------0.test extract_intelligent--------"
+    DCore.Installer.extract_intelligent()
     
-    echo "--------test copy_whitelist--------"
+    echo "--------1.test copy_whitelist--------"
     try
         DCore.Installer.copy_whitelist()
     catch error
         echo error
     __selected_stage = "chroot"
     
-    echo "--------test chroot_target--------"
+    echo "--------2.test chroot_target--------"
     try
         DCore.Installer.chroot_target()
     catch error
         echo error
 
-    echo "--------test finish_install--------"
-    DCore.Installer.finish_install()
+    echo "--------3.test finish_install--------"
+    try
+        DCore.Installer.finish_install()
+    catch error
+        echo error
 
 
 __init_parted_finish = false

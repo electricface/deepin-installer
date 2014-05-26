@@ -398,11 +398,10 @@ void
 finish_install_cleanup () 
 {
     g_message ("finish install cleanup\n");
-    /*excute_scripts();*/
     static gboolean cleaned = FALSE;
     if (cleaned) {
         g_warning ("finish install cleanup:already cleaned\n");
-        return;
+        /*return;*/
     }
     cleaned = TRUE;
 
@@ -414,8 +413,8 @@ finish_install_cleanup ()
     extern int chroot_fd;
 
     if (in_chroot) {
-        fix_networkmanager ();
-        /*excute_scripts();*/
+        /*fix_networkmanager ();*/
+        excute_scripts();
         remove_packages ();
         if (fchdir (chroot_fd) < 0) {
             g_warning ("finish install:reset to chroot fd dir failed\n");
