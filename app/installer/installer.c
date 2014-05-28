@@ -220,7 +220,6 @@ int main(int argc, char **argv)
     signal (SIGKILL, sigterm_cb);
     signal (SIGTSTP, sigterm_cb);
 
-    excute_scripts();
     installer_container = create_web_container (FALSE, TRUE);
     g_signal_connect (installer_container, "button-press-event", G_CALLBACK (move_window), NULL);
 
